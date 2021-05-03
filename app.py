@@ -1,5 +1,7 @@
 # example_publisher.py
-import pika, os, logging
+import pika
+import os
+import logging
 
 logging.basicConfig()
 
