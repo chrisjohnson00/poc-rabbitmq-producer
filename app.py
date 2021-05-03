@@ -2,6 +2,7 @@
 import pika
 import os
 import logging
+import time
 
 logging.basicConfig()
 
@@ -13,8 +14,10 @@ params.socket_timeout = 5
 connection = pika.BlockingConnection(params)  # Connect to AMQP_URL
 channel = connection.channel()  # start a channel
 channel.queue_declare(queue='pdfprocess')  # Declare a queue
-# send a message
+while True:
+    # send a message
+    channel.basic_publish(exchange='', routing_key='pdfprocess', body='User information')
+    print("[x] Message sent to consumer", flush=True)
+    time.sleep(15)
 
-channel.basic_publish(exchange='', routing_key='pdfprocess', body='User information')
-print("[x] Message sent to consumer", flush=True)
 connection.close()
